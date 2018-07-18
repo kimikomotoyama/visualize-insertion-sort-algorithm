@@ -86,8 +86,21 @@
       // A link to our styles!
       __webpack_require__(2);
 
-      const sort = new Sort();
-      sort.sort();
+      const sort = new Sort([3, 1, 5, 2]);
+
+      //create each div element with the array to be sorted
+      sort.array.forEach((element) => {
+        const elementsDiv = document.querySelector(".elements");
+        let newElement = document.createElement("div");
+        newElement.className += element;
+        newElement.textContent = element;
+        elementsDiv.append(newElement);
+      });
+
+      document.querySelector("button").addEventListener("click", () => {
+        console.log("clicked button!");
+        // sort.sort();
+      });
 
       function createCheesyTitle(slogan) {
         const container = document.createElement("h1");
@@ -127,22 +140,29 @@
 
         sort() {
           let resultArray = [];
-          const length = this.array.length;
 
-          // for (let i = length; i > 0; i--) {
-          //   let element = this.array.pop();
-          //   if (i === length) {
-          //     resultArray.push(element);
-          //   } else {
-          //     for (let j = 0; j < resultArray.length; j++) {
-          //       if (element < resultArray[j]) {
-          //         resultArray.splice(j, 0, element);
-          //       }
-          //     }
-          //   }
-          // }
-          // return resultArray;
-          return [1, 3, 5];
+          let element = this.array.pop();
+          resultArray.push(element);
+          const length = this.array.length;
+          let i = 0;
+
+          while (i < length) {
+            if (resultArray.length === length + 1) return resultArray;
+            if (this.array.length > 0) {
+              element = this.array.pop();
+            }
+            if (element < resultArray[i]) {
+              resultArray.splice(i, 0, element);
+              i = 0;
+            } else {
+              if (i + 1 === resultArray.length) {
+                resultArray.push(element);
+                i = 0;
+              } else {
+                i++;
+              }
+            }
+          }
         }
 
         returnValue(value) {

@@ -9,8 +9,21 @@ const Sort = require("./Sort");
 // A link to our styles!
 require("./index.css");
 
-const sort = new Sort();
-sort.sort();
+const sort = new Sort([3, 1, 5, 2]);
+
+//create each div element with the array to be sorted
+sort.array.forEach((element) => {
+  const elementsDiv = document.querySelector(".elements");
+  let newElement = document.createElement("div");
+  newElement.className += element;
+  newElement.textContent = element;
+  elementsDiv.append(newElement);
+});
+
+document.querySelector("button").addEventListener("click", () => {
+  console.log("clicked button!");
+  // sort.sort();
+});
 
 function createCheesyTitle(slogan) {
   const container = document.createElement("h1");
