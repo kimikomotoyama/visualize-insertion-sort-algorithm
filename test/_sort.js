@@ -9,7 +9,7 @@ describe("Sort", () => {
     expect(Sort.prototype.sort).to.be.a("function");
   });
   it("should sort in correct order", () => {
-    let array = new Sort([3, 1, 5]);
-    expect(array.sort()).to.equal([1, 3, 5]);
+    let array = new Sort([3, 1, 5, 2]);
+    expect(array.sort()).to.deep.equal([1, 2, 3, 5]);
   });
 });

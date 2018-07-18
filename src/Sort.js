@@ -5,21 +5,33 @@ class Sort {
 
   sort() {
     let resultArray = [];
-    const length = this.array.length;
 
-    for (let i = length; i > 0; i--) {
-      let element = this.array.pop();
-      if (i === length) {
-        resultArray.push(element);
+    // resultArray = [2]
+    // this.array = [3, 1, 5]
+    let element = this.array.pop();
+    resultArray.push(element);
+    const length = this.array.length;
+    let i = 0;
+
+    while (i < length) {
+      if (resultArray.length === length + 1) return resultArray;
+      if (this.array.length > 0) {
+        element = this.array.pop(); //element = 1,
+      }
+      if (element < resultArray[i]) {
+        // 1 < 2? no.
+        resultArray.splice(i, 0, element);
+        i = 0;
       } else {
-        for (let j = 0; j < resultArray.length; j++) {
-          if (element < resultArray[j]) {
-            resultArray.splice(j, 0, element);
-          }
+        if (i + 1 === resultArray.length) {
+          //if there's no more element in resultArray
+          resultArray.push(element);
+          i = 0;
+        } else {
+          i++;
         }
       }
     }
-    return resultArray;
   }
 
   returnValue(value) {
