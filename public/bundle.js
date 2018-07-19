@@ -105,14 +105,14 @@
 
       document.querySelector("button").addEventListener("click", () => {
         let sortedArray = unsorted.sort(); //sortedArray won't have array, will have resultArray
-        let i = 0;
+        let i = originalUnsortedObj.array.length - 1;
 
         let fadeEachElement = () => {
-          if (i === originalUnsortedObj.array.length - 1) {
+          if (i === 0) {
             clearInterval(id);
           }
           getNextElementFromUnsorted(originalUnsortedObj.array[i]);
-          i++;
+          i--;
         };
 
         let id = setInterval(fadeEachElement, 2000);
@@ -251,7 +251,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation : fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}",
+        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
         "",
       ]);
 

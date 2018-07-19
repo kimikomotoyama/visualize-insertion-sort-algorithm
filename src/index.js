@@ -28,14 +28,14 @@ function createElements(unsorted) {
 
 document.querySelector("button").addEventListener("click", () => {
   let sortedArray = unsorted.sort(); //sortedArray won't have array, will have resultArray
-  let i = 0;
+  let i = originalUnsortedObj.array.length - 1;
 
   let fadeEachElement = () => {
-    if (i === originalUnsortedObj.array.length - 1) {
+    if (i === 0) {
       clearInterval(id);
     }
     getNextElementFromUnsorted(originalUnsortedObj.array[i]);
-    i++;
+    i--;
   };
 
   let id = setInterval(fadeEachElement, 2000);
