@@ -75,6 +75,7 @@
   /******/ [
     /* 0 */
     /***/ function(module, exports, __webpack_require__) {
+      /* eslint-env browser */
       /* Example Code
       The following is just some example code for you to play around with.
       No need to keep this---it's just some code so you don't feel too lonely.
@@ -86,22 +87,44 @@
       // A link to our styles!
       __webpack_require__(2);
 
-      const sort = new Sort([3, 1, 5, 2]);
+      const unsorted = new Sort([3, 1, 4, 5, 2]); //won't have unsorted.array
+      const originalUnsortedObj = new Sort([3, 1, 4, 5, 2]);
+
+      createElements(unsorted);
 
       //create each div element with the array to be sorted
-      sort.array.forEach((element) => {
-        const elementsDiv = document.querySelector(".elements");
-        let newElement = document.createElement("div");
-        newElement.className += element;
-        newElement.textContent = element;
-        elementsDiv.append(newElement);
-      });
+      function createElements(unsorted) {
+        unsorted.array.forEach((element) => {
+          const elementsDiv = document.querySelector(".elements");
+          let newElement = document.createElement("div");
+          newElement.className += element + " element";
+          newElement.textContent = element;
+          elementsDiv.append(newElement);
+        });
+      }
 
       document.querySelector("button").addEventListener("click", () => {
-        console.log("clicked button!");
-        let sortedArray = sort.sort();
-        console.log(sortedArray);
+        let sortedArray = unsorted.sort(); //sortedArray won't have array, will have resultArray
+        let i = 0;
+
+        let fadeEachElement = () => {
+          if (i === originalUnsortedObj.array.length - 1) {
+            clearInterval(id);
+          }
+          getNextElementFromUnsorted(originalUnsortedObj.array[i]);
+          i++;
+        };
+
+        let id = setInterval(fadeEachElement, 2000);
       });
+
+      function getNextElementFromUnsorted(originalUnsortedElement) {
+        const parentNode = document.querySelector(".elements");
+        const childToRemove = parentNode.getElementsByClassName(
+          originalUnsortedElement
+        );
+        childToRemove[0].classList.add("fadeout");
+      }
 
       function createCheesyTitle(slogan) {
         const container = document.createElement("h1");
@@ -110,7 +133,7 @@
         return container;
       }
 
-      const title = createCheesyTitle(sort.returnValue("Insertion Sort"));
+      const title = createCheesyTitle(unsorted.returnValue("Insertion Sort"));
       document.getElementById("title").appendChild(title);
 
       /*
@@ -137,32 +160,40 @@
       class Sort {
         constructor(array) {
           this.array = array;
+          this.resultArray = [];
         }
 
         sort() {
-          let resultArray = [];
+          while (this.array.length > 0) {
+            let element = this.getNextElementToCompare();
+            this.compareAndInsertInResultArray(element);
+          }
+          return this.resultArray;
+        }
 
-          let element = this.array.pop();
-          resultArray.push(element);
-          const length = this.array.length;
-          let i = 0;
+        getNextElementToCompare() {
+          return this.array.pop();
+        }
 
-          while (i < length) {
-            if (resultArray.length === length + 1) return resultArray;
-            if (this.array.length > 0) {
-              element = this.array.pop();
-            }
-            if (element < resultArray[i]) {
-              resultArray.splice(i, 0, element);
-              i = 0;
-            } else {
-              if (i + 1 === resultArray.length) {
-                resultArray.push(element);
-                i = 0;
-              } else {
-                i++;
+        compareAndInsertInResultArray(elementToCompare) {
+          let found = false;
+          this.resultArray.some(
+            (eachElementInResultArray, indexInResultArray) => {
+              if (elementToCompare < eachElementInResultArray) {
+                // insert in front of current eachElementInResultArray
+                this.resultArray.splice(
+                  indexInResultArray,
+                  0,
+                  elementToCompare
+                );
+                found = true;
+                return true;
               }
             }
+          );
+          //if elementToCompare isn't smaller than any other elements
+          if (!found) {
+            this.resultArray.push(elementToCompare);
           }
         }
 
@@ -218,7 +249,11 @@
       // imports
 
       // module
-      exports.push([module.i, "body {\n  background-color: #55b491;\n}\n", ""]);
+      exports.push([
+        module.i,
+        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation : fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}",
+        "",
+      ]);
 
       // exports
 

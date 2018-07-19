@@ -1,3 +1,4 @@
+/* eslint-env browser */
 /* Example Code
       The following is just some example code for you to play around with.
       No need to keep this---it's just some code so you don't feel too lonely.
@@ -9,22 +10,44 @@ const Sort = require("./Sort");
 // A link to our styles!
 require("./index.css");
 
-const sort = new Sort([3, 1, 5, 2]);
+const unsorted = new Sort([3, 1, 4, 5, 2]); //won't have unsorted.array
+const originalUnsortedObj = new Sort([3, 1, 4, 5, 2]);
+
+createElements(unsorted);
 
 //create each div element with the array to be sorted
-sort.array.forEach((element) => {
-  const elementsDiv = document.querySelector(".elements");
-  let newElement = document.createElement("div");
-  newElement.className += element;
-  newElement.textContent = element;
-  elementsDiv.append(newElement);
-});
+function createElements(unsorted) {
+  unsorted.array.forEach((element) => {
+    const elementsDiv = document.querySelector(".elements");
+    let newElement = document.createElement("div");
+    newElement.className += element + " element";
+    newElement.textContent = element;
+    elementsDiv.append(newElement);
+  });
+}
 
 document.querySelector("button").addEventListener("click", () => {
-  console.log("clicked button!");
-  let sortedArray = sort.sort();
-  console.log(sortedArray);
+  let sortedArray = unsorted.sort(); //sortedArray won't have array, will have resultArray
+  let i = 0;
+
+  let fadeEachElement = () => {
+    if (i === originalUnsortedObj.array.length - 1) {
+      clearInterval(id);
+    }
+    getNextElementFromUnsorted(originalUnsortedObj.array[i]);
+    i++;
+  };
+
+  let id = setInterval(fadeEachElement, 2000);
 });
+
+function getNextElementFromUnsorted(originalUnsortedElement) {
+  const parentNode = document.querySelector(".elements");
+  const childToRemove = parentNode.getElementsByClassName(
+    originalUnsortedElement
+  );
+  childToRemove[0].classList.add("fadeout");
+}
 
 function createCheesyTitle(slogan) {
   const container = document.createElement("h1");
@@ -33,7 +56,7 @@ function createCheesyTitle(slogan) {
   return container;
 }
 
-const title = createCheesyTitle(sort.returnValue("Insertion Sort"));
+const title = createCheesyTitle(unsorted.returnValue("Insertion Sort"));
 document.getElementById("title").appendChild(title);
 
 /*
