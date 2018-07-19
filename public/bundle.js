@@ -92,34 +92,56 @@
       toBeSortedObj.sort();
 
       createElements(unsortedForeverObj.array, ".elements");
-      showElementsFading();
-      showSorting(toBeSortedObj);
 
       //create each div element with the array to be sorted
       function createElements(sortClassArray, parentClassName) {
         sortClassArray.forEach((element) => {
-          const elementsDiv = document.querySelector(parentClassName);
-          let newElement = document.createElement("div");
-          newElement.className += element + " element";
-          newElement.textContent = element;
-          elementsDiv.append(newElement);
+          createOneElement(element, parentClassName);
         });
       }
 
-      function showSorting(stepsArray) {
-        let i = 0;
-
-        let eachStep = (i) => {
-          stepsArray.forEach((eachStepArray) => {
-            createElements(eachStepArray, ".sortedElements");
-          });
-          i++;
-          if (i === stepsArray.length - 0) clearTimeout(id);
-        };
-        let id = setInterval(eachStep, 1000);
+      function createOneElement(element, parentClassName) {
+        const elementsDiv = document.querySelector(parentClassName);
+        let newElement = document.createElement("div");
+        newElement.className += element + " element";
+        newElement.textContent = element;
+        elementsDiv.append(newElement);
       }
 
-      function getNextElementFromUnsorted(elementToFade) {}
+      function showSorting(stepsArray) {
+        const parentNode = document.querySelector(".sortedElements");
+        let i = 0;
+
+        let show = () => {
+          if (i === stepsArray.length) {
+            clearInterval(id);
+            i = 0;
+          } else {
+            parentNode.innerHTML = "";
+            createElements(stepsArray[i], ".sortedElements");
+            i++;
+          }
+        };
+
+        let id = setInterval(show, 3000);
+      }
+
+      function fadeAndRemoveChild(originalUnsortedElement) {
+        const parentNode = document.querySelector(".elements");
+        const childToRemove = parentNode.getElementsByClassName(
+          originalUnsortedElement
+        );
+        childToRemove[0].classList.add("fadeout");
+        parentNode.removeChild(childToRemove[0]);
+      }
+
+      function getNextElementFromUnsorted(originalUnsortedElement) {
+        const parentNode = document.querySelector(".elements");
+        const childToRemove = parentNode.getElementsByClassName(
+          originalUnsortedElement
+        );
+        childToRemove[0].classList.add("highlightElement");
+      }
 
       function showElementsFading() {
         let i = unsortedForeverObj.array.length - 1;
@@ -128,15 +150,17 @@
           if (i === 0) {
             clearInterval(id);
           }
-          getNextElementFromUnsorted(unsortedForeverObj.array[i]);
+          // getNextElementFromUnsorted(unsortedForeverObj.array[i]);
+          fadeAndRemoveChild(unsortedForeverObj.array[i]);
           i--;
         };
 
-        let id = setInterval(fadeEachElement, 1000);
+        let id = setInterval(fadeEachElement, 3000);
       }
 
       document.querySelector("button").addEventListener("click", () => {
         showElementsFading();
+        showSorting(toBeSortedObj.steps);
       });
 
       function createCheesyTitle(slogan) {
@@ -163,10 +187,10 @@
         // console.log('What is an event?', event);
       }
 
-      const form = document.querySelector("form");
-      document.addEventListener("DOMContentLoaded", () => {
-        form.onsubmit = changeTitle;
-      });
+      // const form = document.querySelector("form");
+      // document.addEventListener("DOMContentLoaded", () => {
+      //   form.onsubmit = changeTitle;
+      // });
 
       /***/
     },
@@ -269,7 +293,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
+        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.elements, .sortedElements {\n  display: flex;\n  height: 200px;\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
         "",
       ]);
 
