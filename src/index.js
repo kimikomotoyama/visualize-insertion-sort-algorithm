@@ -22,7 +22,8 @@ sort.array.forEach((element) => {
 
 document.querySelector("button").addEventListener("click", () => {
   console.log("clicked button!");
-  // sort.sort();
+  let sortedArray = sort.sort();
+  console.log(sortedArray);
 });
 
 function createCheesyTitle(slogan) {
@@ -32,7 +33,7 @@ function createCheesyTitle(slogan) {
   return container;
 }
 
-const title = createCheesyTitle(sort.returnValue("Re-Engineer Yourself"));
+const title = createCheesyTitle(sort.returnValue("Insertion Sort"));
 document.getElementById("title").appendChild(title);
 
 /*

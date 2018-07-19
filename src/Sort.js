@@ -1,32 +1,34 @@
 class Sort {
   constructor(array) {
     this.array = array;
+    this.resultArray = [];
   }
 
   sort() {
-    let resultArray = [];
+    while (this.array.length > 0) {
+      let element = this.getNextElementToCompare();
+      this.compareAndInsertInResultArray(element);
+    }
+    return this.resultArray;
+  }
 
-    let element = this.array.pop();
-    resultArray.push(element);
-    const length = this.array.length;
-    let i = 0;
+  getNextElementToCompare() {
+    return this.array.pop();
+  }
 
-    while (i < length) {
-      if (resultArray.length === length + 1) return resultArray;
-      if (this.array.length > 0) {
-        element = this.array.pop();
+  compareAndInsertInResultArray(elementToCompare) {
+    let found = false;
+    this.resultArray.some((eachElementInResultArray, indexInResultArray) => {
+      if (elementToCompare < eachElementInResultArray) {
+        // insert in front of current eachElementInResultArray
+        this.resultArray.splice(indexInResultArray, 0, elementToCompare);
+        found = true;
+        return true;
       }
-      if (element < resultArray[i]) {
-        resultArray.splice(i, 0, element);
-        i = 0;
-      } else {
-        if (i + 1 === resultArray.length) {
-          resultArray.push(element);
-          i = 0;
-        } else {
-          i++;
-        }
-      }
+    });
+    //if elementToCompare isn't smaller than any other elements
+    if (!found) {
+      this.resultArray.push(elementToCompare);
     }
   }
 
