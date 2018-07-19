@@ -87,13 +87,13 @@
       // A link to our styles!
       __webpack_require__(2);
 
-      const unsorted = new Sort([3, 1, 4, 5, 2]); //won't have unsorted.array after sort()
-      const originalUnsortedObj = new Sort([3, 1, 4, 5, 2]);
+      const unsortedForeverObj = new Sort([3, 1, 4, 5, 2]);
+      const toBeSortedObj = new Sort([3, 1, 4, 5, 2]); //won't have unsorted.array after sort()
+      toBeSortedObj.sort();
 
-      unsorted.sort();
-      console.log(unsorted);
-
-      // createElements(unsorted.array, ".elements");
+      createElements(unsortedForeverObj.array, ".elements");
+      showElementsFading();
+      showSorting(toBeSortedObj);
 
       //create each div element with the array to be sorted
       function createElements(sortClassArray, parentClassName) {
@@ -106,36 +106,38 @@
         });
       }
 
-      document.querySelector("button").addEventListener("click", () => {
-        let i = originalUnsortedObj.array.length - 1;
+      function showSorting(stepsArray) {
+        let i = 0;
+
+        let eachStep = (i) => {
+          stepsArray.forEach((eachStepArray) => {
+            createElements(eachStepArray, ".sortedElements");
+          });
+          i++;
+          if (i === stepsArray.length - 0) clearTimeout(id);
+        };
+        let id = setInterval(eachStep, 1000);
+      }
+
+      function getNextElementFromUnsorted(elementToFade) {}
+
+      function showElementsFading() {
+        let i = unsortedForeverObj.array.length - 1;
 
         let fadeEachElement = () => {
           if (i === 0) {
             clearInterval(id);
           }
-          getNextElementFromUnsorted(originalUnsortedObj.array[i]);
+          getNextElementFromUnsorted(unsortedForeverObj.array[i]);
           i--;
         };
 
         let id = setInterval(fadeEachElement, 1000);
-        showSortedArrays(unsorted);
-      });
-
-      function getNextElementFromUnsorted(originalUnsortedElement) {
-        const parentNode = document.querySelector(".elements");
-        const childToRemove = parentNode.getElementsByClassName(
-          originalUnsortedElement
-        );
-        // childToRemove[0].css(
-        //   {
-
-        //   }
-        // );
-        // childToRemove[0].classList.add("highlightElement"); //highlights to coral
-        parentNode.removeChild(childToRemove[0]); //removes the element div
       }
 
-      function showSortedArrays(unsorted) {}
+      document.querySelector("button").addEventListener("click", () => {
+        showElementsFading();
+      });
 
       function createCheesyTitle(slogan) {
         const container = document.createElement("h1");
@@ -144,7 +146,9 @@
         return container;
       }
 
-      const title = createCheesyTitle(unsorted.returnValue("Insertion Sort"));
+      const title = createCheesyTitle(
+        toBeSortedObj.returnValue("Insertion Sort")
+      );
       document.getElementById("title").appendChild(title);
 
       /*
