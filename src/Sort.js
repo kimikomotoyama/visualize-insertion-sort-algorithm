@@ -5,6 +5,7 @@ class Sort {
     this.steps = [];
   }
 
+  // O(n)
   sort() {
     while (this.array.length > 0) {
       let element = this.getNextElementToCompare();
@@ -13,10 +14,12 @@ class Sort {
     return this.resultArray;
   }
 
+  // O(1)
   getNextElementToCompare() {
     return this.array.pop();
   }
 
+  // O(n)
   compareAndInsertInResultArray(elementToCompare) {
     let found = false;
     this.resultArray.some((eachElementInResultArray, indexInResultArray) => {

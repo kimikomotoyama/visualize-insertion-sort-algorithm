@@ -203,6 +203,7 @@
           this.steps = [];
         }
 
+        // O(n)
         sort() {
           while (this.array.length > 0) {
             let element = this.getNextElementToCompare();
@@ -211,10 +212,12 @@
           return this.resultArray;
         }
 
+        // O(1)
         getNextElementToCompare() {
           return this.array.pop();
         }
 
+        // O(n)
         compareAndInsertInResultArray(elementToCompare) {
           let found = false;
           this.resultArray.some(
