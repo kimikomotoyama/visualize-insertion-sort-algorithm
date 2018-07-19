@@ -69,15 +69,20 @@ function getNextElementFromUnsorted(originalUnsortedElement) {
 function showElementsFading() {
   let i = unsortedForeverObj.array.length - 1;
 
+  let selectEachElement = () => {
+    getNextElementFromUnsorted(unsortedForeverObj.array[i]);
+  };
+
   let fadeEachElement = () => {
     if (i === 0) {
       clearInterval(id);
+      clearInterval(idForSelectElement);
     }
-    // getNextElementFromUnsorted(unsortedForeverObj.array[i]);
     fadeAndRemoveChild(unsortedForeverObj.array[i]);
     i--;
   };
 
+  let idForSelectElement = setInterval(selectEachElement, 1000);
   let id = setInterval(fadeEachElement, 3000);
 }
 

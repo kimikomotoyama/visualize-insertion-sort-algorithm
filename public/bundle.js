@@ -146,15 +146,20 @@
       function showElementsFading() {
         let i = unsortedForeverObj.array.length - 1;
 
+        let selectEachElement = () => {
+          getNextElementFromUnsorted(unsortedForeverObj.array[i]);
+        };
+
         let fadeEachElement = () => {
           if (i === 0) {
             clearInterval(id);
+            clearInterval(idForSelectElement);
           }
-          // getNextElementFromUnsorted(unsortedForeverObj.array[i]);
           fadeAndRemoveChild(unsortedForeverObj.array[i]);
           i--;
         };
 
+        let idForSelectElement = setInterval(selectEachElement, 1000);
         let id = setInterval(fadeEachElement, 3000);
       }
 
@@ -293,7 +298,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.elements, .sortedElements {\n  display: flex;\n  height: 200px;\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
+        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.elements,\n.sortedElements {\n  display: flex;\n  height: 200px;\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
         "",
       ]);
 
