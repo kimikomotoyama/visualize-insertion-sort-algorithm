@@ -10,15 +10,18 @@ const Sort = require("./Sort");
 // A link to our styles!
 require("./index.css");
 
-const unsorted = new Sort([3, 1, 4, 5, 2]); //won't have unsorted.array
+const unsorted = new Sort([3, 1, 4, 5, 2]); //won't have unsorted.array after sort()
 const originalUnsortedObj = new Sort([3, 1, 4, 5, 2]);
 
-createElements(unsorted);
+unsorted.sort();
+console.log(unsorted);
+
+// createElements(unsorted.array, ".elements");
 
 //create each div element with the array to be sorted
-function createElements(unsorted) {
-  unsorted.array.forEach((element) => {
-    const elementsDiv = document.querySelector(".elements");
+function createElements(sortClassArray, parentClassName) {
+  sortClassArray.forEach((element) => {
+    const elementsDiv = document.querySelector(parentClassName);
     let newElement = document.createElement("div");
     newElement.className += element + " element";
     newElement.textContent = element;
@@ -27,7 +30,6 @@ function createElements(unsorted) {
 }
 
 document.querySelector("button").addEventListener("click", () => {
-  let sortedArray = unsorted.sort(); //sortedArray won't have array, will have resultArray
   let i = originalUnsortedObj.array.length - 1;
 
   let fadeEachElement = () => {
@@ -38,7 +40,8 @@ document.querySelector("button").addEventListener("click", () => {
     i--;
   };
 
-  let id = setInterval(fadeEachElement, 2000);
+  let id = setInterval(fadeEachElement, 1000);
+  showSortedArrays(unsorted);
 });
 
 function getNextElementFromUnsorted(originalUnsortedElement) {
@@ -46,8 +49,16 @@ function getNextElementFromUnsorted(originalUnsortedElement) {
   const childToRemove = parentNode.getElementsByClassName(
     originalUnsortedElement
   );
-  childToRemove[0].classList.add("fadeout");
+  // childToRemove[0].css(
+  //   {
+
+  //   }
+  // );
+  // childToRemove[0].classList.add("highlightElement"); //highlights to coral
+  parentNode.removeChild(childToRemove[0]); //removes the element div
 }
+
+function showSortedArrays(unsorted) {}
 
 function createCheesyTitle(slogan) {
   const container = document.createElement("h1");
