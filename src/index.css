@@ -15,10 +15,29 @@ body {
   }
 }
 
+.entireContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  display: inline-block;
+  width: 200px;
+  height: 90px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  font-size: 50px;
+}
+
+button:hover {
+  background-color: darkgray;
+}
+
 .elements,
 .sortedElements {
   display: flex;
   height: 200px;
+  width: 500px;
 }
 
 .element {

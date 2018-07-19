@@ -192,11 +192,6 @@
         // console.log('What is an event?', event);
       }
 
-      // const form = document.querySelector("form");
-      // document.addEventListener("DOMContentLoaded", () => {
-      //   form.onsubmit = changeTitle;
-      // });
-
       /***/
     },
     /* 1 */
@@ -298,7 +293,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.elements,\n.sortedElements {\n  display: flex;\n  height: 200px;\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
+        "body {\n  background-color: #55b491;\n}\n\n.fadeout {\n  animation: fadeOut 1s;\n  animation-fill-mode: both;\n}\n@keyframes fadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n\n.entireContainer {\n  display: flex;\n  justify-content: space-around;\n}\n\nbutton {\n  display: inline-block;\n  width: 200px;\n  height: 90px;\n  border: 1px solid gray;\n  border-radius: 10px;\n  font-size: 50px;\n}\n\nbutton:hover {\n  background-color: darkgray;\n}\n\n.elements,\n.sortedElements {\n  display: flex;\n  height: 200px;\n  width: 500px;\n}\n\n.element {\n  border: 2px solid gray;\n  border-radius: 5px;\n  width: 50px;\n  height: 50px;\n  margin: 10px;\n  padding: 10px;\n  text-align: center;\n  font-size: 40px;\n  background-color: aliceblue;\n}\n\n.highlightElement {\n  background-color: coral;\n}\n",
         "",
       ]);
 

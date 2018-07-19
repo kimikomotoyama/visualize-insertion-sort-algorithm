@@ -112,8 +112,3 @@ function changeTitle(event) {
   event.preventDefault();
   // console.log('What is an event?', event);
 }
-
-// const form = document.querySelector("form");
-// document.addEventListener("DOMContentLoaded", () => {
-//   form.onsubmit = changeTitle;
-// });
